@@ -1,0 +1,184 @@
+:root {
+  /** CSS DARK THEME PRIMARY COLORS */
+
+  --color-primary-100: #6000ba;
+  --color-primary-200: #762dc2;
+  --color-primary-300: #8a49cb;
+  --color-primary-400: #9c63d3;
+  --color-primary-500: #ae7ddb;
+  --color-primary-600: #bf96e2;
+  --color-primary-700: #dbb1ff;
+  --color-primary-800: #e3c6ff;
+
+  /** CSS DARK THEME SURFACE COLORS */
+
+  --color-surface-100: #121212;
+  --color-surface-200: #282828;
+  --color-surface-300: #3f3f3f;
+  --color-surface-400: #575757;
+  --color-surface-500: #717171;
+  --color-surface-600: #8b8b8b;
+
+  /** CSS DARK THEME MIXED SURFACE COLORS */
+
+  --color-surface-mixed-100: #2b173f;
+  --color-surface-mixed-200: #402d52;
+  --color-surface-mixed-300: #564466;
+  --color-surface-mixed-400: #6c5c7a;
+  --color-surface-mixed-500: #83758f;
+  --color-surface-mixed-600: #9b8fa5;
+}
+
+/* START OF GOOGLE MATERIAL ICONS */
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0;
+  color: var(--color-primary-600);
+  pointer-events: none;
+}
+/* END OF GOOGLE MATERIAL ICONS */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  color: aliceblue;
+  user-select: none; /* prevent highlighting*/
+}
+body {
+  background-color: var(--color-surface-100);
+}
+.box {
+  min-width: 3em;
+  min-height: 3em;
+  background-color: black;
+}
+.hide{
+  display: none;
+  transition: 0.2s;
+}
+.show {
+  display: block;
+  transition: 0.2s;
+}
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  grid-row: 10;
+  justify-content: center;
+  border-width: 0.25em;
+  border-radius: 0.15em;
+  border-color: var(--color-primary-600);
+  border-style: solid;
+  width: 27.5em;
+  margin: 1em;
+}
+.radio-gap{
+  height: 1.4em;
+  margin-top: 0.1em;
+}
+.size-gap{
+  height: 1.4em;
+  margin-top: 0.05em;
+}
+#return-formatted-color{
+  background-color: var(--color-surface-100);
+  color: var(--color-surface-200);
+  padding: 0 0.25em 0 0.25em;
+  border-color: var(--color-surface-200);
+  border-radius: 0.3em;
+  border-width: 0.15em;
+  border-style: solid;
+  transition: 0.2s;
+}
+#return-formatted-color:hover{
+  background-color: var(--color-primary-700);
+  border-color: var(--color-primary-600);
+  color: var(--color-primary-400);
+  transition: 0.2s;
+}
+label,
+.color-radio,
+.size-settings,
+.option-text,#return-formatted-color,input[type="number"] {
+  font-family: "Courier New", Courier, monospace;
+}
+.color-radio,
+.color-number,
+.size-setting {
+  line-height: 1em;
+}
+#app {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+input[type="number"] {
+  border-color: var(--color-primary-600);
+  background-color: var(--color-surface-100);
+  border-width: 0.15em;
+  border-radius: 0.15em;
+  border-style: solid;
+  padding-left: 0.15em;
+  appearance: textfield;
+}
+.center-content {
+  align-items: center;
+}
+input[type="number"]:focus {
+  outline: 0.2em solid var(--color-primary-300);
+}
+input[type="radio"] {
+  accent-color: var(--color-primary-600);
+}
+.inputs {
+  display: flex;
+  flex-flow: row;
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
+  justify-content: center;
+  border-width: 0.25em;
+  border-radius: 0.15em;
+  border-color: var(--color-primary-600);
+  border-style: solid;
+  width: 40em;
+  margin: 1em;
+  transition: 0.2s;
+}
+.inputs:hover {
+  background-color: var(--color-surface-mixed-100);
+  transition: 0.2s;
+}
+.values,
+.value-switches,
+.size-settings {
+  width: 20em;
+  height: 100%;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  display: flex;
+  flex-direction: column;
+  columns: 1;
+  flex-wrap: wrap;
+}
+.size-settings input[type="number"] {
+  max-width: 5em;
+  height: 1.4em;
+  margin-right: 0.2em;
+}
+.values input[type="number"] {
+  max-width: 5em;
+  height: 1.4em;
+  margin-right: 0.2em;
+}
+.increment-button {
+  height: 1.5em;
+  width: 1.5em;
+  cursor: pointer;
+}
+.cursor-select, #return-formatted-color {
+  cursor: pointer;
+}
+.number-input-div {
+  display: flex;
+  align-items: center;
+}
