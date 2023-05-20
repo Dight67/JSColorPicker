@@ -1,25 +1,22 @@
-const boxes = document.querySelectorAll(".box");
 let hsl = true;
 let val0 = 0;
 let val1 = 0;
 let val2 = 0;
-boxes.forEach((box) => {
-  console.log("box_check");
-});
+
 // declare formatted color change
 const copiedNotifier = document.querySelector(".return-formatted-color-copy");
 const returnFormattedColor = document.querySelector("#return-formatted-color");
 // return color
-const returnColor = () => {
+const returnColor = (a, b, c) => {
   if (hsl === true) {
-    return `hsl(${val0},${val1}%,${val2}%)`
+    return `hsl(${a},${b}%,${c}%)`;
   } else {
-    return `rgb(${val0},${val1},${val2})`
+    return `rgb(${a},${b},${c})`;
   }
 };
 // copy content to clipboard
 returnFormattedColor.addEventListener("click", () => {
-  returnFormattedColor.innerHTML = returnColor();
+  returnFormattedColor.innerHTML = returnColor(val0, val1, val2);
   navigator.clipboard.writeText(returnFormattedColor.innerHTML);
   copiedNotifier.style.display = "block";
   setTimeout(() => {
@@ -31,7 +28,7 @@ returnFormattedColor.addEventListener("click", () => {
 const colorValue0 = document.querySelector("#input-0");
 const colorValue1 = document.querySelector("#input-1");
 const colorValue2 = document.querySelector("#input-2");
-const colorValueName = document.querySelectorAll(".color-number")
+const colorValueName = document.querySelectorAll(".color-number");
 // radio
 const colorHsl = document.querySelector("#radio-hsl");
 const colorRgb = document.querySelector("#radio-rgb");
@@ -46,35 +43,47 @@ console.log(containerHeight, containerWidth);
 // declare switch color models functions
 const setDefaultHSL = () => {
   colorValue0.value = "0";
-  colorValue1.value = "100";
-  colorValue2.value = "50";
-  colorValue0.max = "360";
-  colorValue1.max = "100";
-  colorValue2.max = "100";
-  colorValueName[0].innerHTML = "HUE&nbsp;&nbsp;&nbsp;&nbsp;"
-  colorValueName[0].title = "HUE of colors (0-360)"
-  colorValueName[1].innerHTML = "Satur.&nbsp;"
-  colorValueName[1].title = "Saturation (0-100%)"
-  colorValueName[2].innerHTML = "Light.&nbsp;"
-  colorValueName[2].title = "Lightness (0-100%)"
+  colorValue1.value = "50";
+  colorValue2.value = "25";
+  if (limits == true) {
+    colorValue0.max = "360";
+    colorValue1.max = "100";
+    colorValue2.max = "100";
+  } else {
+    colorValue0.max = "99999999999";
+    colorValue1.max = "99999999999";
+    colorValue2.max = "99999999999";
+  }
+  colorValueName[0].innerHTML = "HUE&nbsp;&nbsp;&nbsp;&nbsp;";
+  colorValueName[0].title = "HUE of colors (0-360)";
+  colorValueName[1].innerHTML = "Satur.&nbsp;";
+  colorValueName[1].title = "Saturation (0-100%)";
+  colorValueName[2].innerHTML = "Light.&nbsp;";
+  colorValueName[2].title = "Lightness (0-100%)";
   val0 = 0;
-  val1 = 100;
-  val2 = 50;
+  val1 = 50;
+  val2 = 25;
   hsl = true;
 };
 const setDefaultRGB = () => {
   colorValue0.value = "255";
   colorValue1.value = "0";
   colorValue2.value = "0";
-  colorValue0.max = "255";
-  colorValue1.max = "255";
-  colorValue2.max = "255";
-  colorValueName[0].innerHTML = "Red&nbsp;&nbsp;&nbsp;&nbsp;"
-  colorValueName[0].title = "Red (0-255)"
-  colorValueName[1].innerHTML = "Green&nbsp;&nbsp;"
-  colorValueName[1].title = "Green (0-255)"
-  colorValueName[2].innerHTML = "Blue&nbsp;&nbsp;&nbsp;"
-  colorValueName[2].title = "Blue (0-255)"
+  if (limits == true) {
+    colorValue0.max = "255";
+    colorValue1.max = "255";
+    colorValue2.max = "255";
+  } else {
+    colorValue0.max = "99999999999";
+    colorValue1.max = "99999999999";
+    colorValue2.max = "99999999999";
+  }
+  colorValueName[0].innerHTML = "Red&nbsp;&nbsp;&nbsp;&nbsp;";
+  colorValueName[0].title = "Red (0-255)";
+  colorValueName[1].innerHTML = "Green&nbsp;&nbsp;";
+  colorValueName[1].title = "Green (0-255)";
+  colorValueName[2].innerHTML = "Blue&nbsp;&nbsp;&nbsp;";
+  colorValueName[2].title = "Blue (0-255)";
   val0 = 255;
   val1 = 0;
   val2 = 0;
@@ -84,25 +93,30 @@ const setDefaultRGB = () => {
 // detect changing color model
 colorHsl.addEventListener("click", () => {
   setDefaultHSL();
-  returnFormattedColor.innerHTML = returnColor();
+  returnFormattedColor.innerHTML = returnColor(val0, val1, val2);
+  draw();
 });
 colorRgb.addEventListener("click", () => {
   setDefaultRGB();
-  returnFormattedColor.innerHTML = returnColor();
+  returnFormattedColor.innerHTML = returnColor(val0, val1, val2);
+  draw();
 });
 
 // detect changing color value
 colorValue0.addEventListener("change", () => {
   val0 = colorValue0.value;
-  returnFormattedColor.innerHTML = returnColor();
+  returnFormattedColor.innerHTML = returnColor(val0, val1, val2);
+  draw();
 });
 colorValue1.addEventListener("change", () => {
   val1 = colorValue1.value;
-  returnFormattedColor.innerHTML = returnColor();
+  returnFormattedColor.innerHTML = returnColor(val0, val1, val2);
+  draw();
 });
 colorValue2.addEventListener("change", () => {
   val2 = colorValue2.value;
-  returnFormattedColor.innerHTML = returnColor();
+  returnFormattedColor.innerHTML = returnColor(val0, val1, val2);
+  draw();
 });
 
 // declare iteration buttons
@@ -173,19 +187,80 @@ containerWidth.addEventListener("change", () => {
   console.log(containerWidth.value); // eeeeeee
 });
 
+const multiply1Button = document.querySelector(".multiply-1");
+const multiply5Button = document.querySelector(".multiply-5");
+const multiply10Button = document.querySelector(".multiply-10");
+const removeLimit = document.querySelector(".remove-limit");
+
+const multiplyBy1 = () => {
+  colorValue0.step = "1";
+  colorValue1.step = "1";
+  colorValue2.step = "1";
+  colorValue0.step = "1";
+  colorValue1.step = "1";
+  colorValue2.step = "1";
+};
+const multiplyBy5 = () => {
+  colorValue0.step = "5";
+  colorValue1.step = "5";
+  colorValue2.step = "5";
+  colorValue0.step = "5";
+  colorValue1.step = "5";
+  colorValue2.step = "5";
+};
+const multiplyBy10 = () => {
+  colorValue0.step = "10";
+  colorValue1.step = "10";
+  colorValue2.step = "10";
+  colorValue0.step = "10";
+  colorValue1.step = "10";
+  colorValue2.step = "10";
+};
+
+multiply1Button.addEventListener("click", () => {
+  multiplyBy1();
+  multiply10Button.style.backgroundColor = "#121212";
+  multiply5Button.style.backgroundColor = "#121212";
+  multiply1Button.style.backgroundColor = "green";
+});
+multiply5Button.addEventListener("click", () => {
+  multiplyBy5();
+  multiply10Button.style.backgroundColor = "#121212";
+  multiply5Button.style.backgroundColor = "green";
+  multiply1Button.style.backgroundColor = "#121212";
+});
+multiply10Button.addEventListener("click", () => {
+  multiplyBy10();
+  multiply10Button.style.backgroundColor = "green";
+  multiply5Button.style.backgroundColor = "#121212";
+  multiply1Button.style.backgroundColor = "#121212";
+});
+let limits = true;
+removeLimit.addEventListener("click", () => {
+  colorValue0.max = "99999999999";
+  colorValue1.max = "99999999999";
+  colorValue2.max = "99999999999";
+  limits = false;
+  removeLimit.style.backgroundColor = "green";
+});
+
+const boxes = document.querySelectorAll(".box");
+const draw = () => {
+  val0temp = val0;
+  val1temp = val1;
+  val2temp = val2;
+  boxes.forEach((box) => {
+    box.style.backgroundColor = returnColor(val0temp, val1temp, val2temp);
+    val0temp++;
+    val1temp++;
+    val2temp++;
+  });
+};
+
 setDefaultHSL();
-returnFormattedColor.innerHTML = returnColor();
-
-
-
-
-
-
-
-
-
-
-
+draw();
+multiplyBy1();
+returnFormattedColor.innerHTML = returnColor(val0, val1, val2);
 /* 
 function RGBToHSL(r, g, b) {
   // Make r, g, and b fractions of 1
@@ -275,3 +350,5 @@ function HSLToRGB(h, s, l) {
 // todo:
 // pick color by clicking
 // change color and show info on hover
+
+// targetted color should be in the middle

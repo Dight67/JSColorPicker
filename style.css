@@ -51,7 +51,32 @@ body {
   min-height: 3em;
   background-color: black;
 }
-.hide{
+#devtools-buttons {
+  justify-content: center;
+  align-items: center;
+  height: 3em;
+  width: 50em;
+  display: flex;
+}
+.dev-button {
+  justify-content: center;
+  cursor: pointer;
+  padding: 0.25em;
+  border-radius: 0.2em;
+  margin: 0.5em;
+  border-width: 0.2em;
+  border-color: var(--color-primary-600);
+  border-style: solid;
+  transition: 0.2s;
+}
+.multiply-1 {
+  background-color: green;
+}
+.dev-button:hover {
+  transition: 0.2s;
+  background-color: var(--color-surface-mixed-100);
+}
+.hide {
   display: none;
   transition: 0.2s;
 }
@@ -71,34 +96,36 @@ body {
   width: 27.5em;
   margin: 1em;
 }
-.radio-gap{
+.radio-gap {
   height: 1.4em;
   margin-top: 0.1em;
 }
-.size-gap{
+.size-gap {
   height: 1.4em;
   margin-top: 0.05em;
 }
-#return-formatted-color{
+#return-formatted-color {
   background-color: var(--color-surface-100);
-  color: var(--color-surface-200);
+  color: var(--color-primary-600);
   padding: 0 0.25em 0 0.25em;
-  border-color: var(--color-surface-200);
+  border-color: var(--color-primary-600);
   border-radius: 0.3em;
   border-width: 0.15em;
   border-style: solid;
   transition: 0.2s;
 }
-#return-formatted-color:hover{
-  background-color: var(--color-primary-700);
+#return-formatted-color:hover {
+  background-color: var(--color-surface-mixed-200);
   border-color: var(--color-primary-600);
-  color: var(--color-primary-400);
   transition: 0.2s;
 }
 label,
 .color-radio,
 .size-settings,
-.option-text,#return-formatted-color,input[type="number"] {
+.option-text,
+#return-formatted-color,
+input[type="number"],
+.dev-button {
   font-family: "Courier New", Courier, monospace;
 }
 .color-radio,
@@ -140,7 +167,7 @@ input[type="radio"] {
   border-radius: 0.15em;
   border-color: var(--color-primary-600);
   border-style: solid;
-  width: 40em;
+  max-width: 45em;
   margin: 1em;
   transition: 0.2s;
 }
@@ -175,7 +202,8 @@ input[type="radio"] {
   width: 1.5em;
   cursor: pointer;
 }
-.cursor-select, #return-formatted-color {
+.cursor-select,
+#return-formatted-color {
   cursor: pointer;
 }
 .number-input-div {
